@@ -19,9 +19,10 @@ router.get('/', (req, res) => {
 
   console.log(`[${new Date().toISOString()}] [Meta Webhook Verification] Received mode: ${mode}, token: ${token}`);
 
-  if (mode === 'subscribe' && token && token === expectedToken) {
+  if (mode === 'subscribe' && token && token.trim() === expectedToken.trim()) {
     console.log(`[${new Date().toISOString()}] [Meta Webhook Verification] Success! Returning challenge.`);
-    return res.status(200).send(challenge);
+    res.setHeader('Content-Type', 'text/plain');
+    return res.status(200).send(String(challenge));
   } else {
     console.warn(`[${new Date().toISOString()}] [Meta Webhook Verification] Failed! Expected token: ${expectedToken}, received: ${token}`);
     return res.sendStatus(403);
