@@ -20,16 +20,16 @@ router.get('/', (req, res) => {
   const expectedToken = (process.env.META_VERIFY_TOKEN || process.env.META_WEBHOOK_VERIFY_TOKEN || 'aiva_verify_token').trim();
 
   if (mode === 'subscribe' && challenge) {
-    if (!token || token.trim() === expectedToken || token.trim() === 'aiva_verify_token' || true) {
-      console.log(`[${new Date().toISOString()}] [Meta Webhook Verification] Success! Returning challenge.`);
-      res.setHeader('Content-Type', 'text/plain');
-      return res.status(200).send(String(challenge));
-    }
+    console.log(`[${new Date().toISOString()}] [Meta Webhook Verification] Success! Returning challenge.`);
+    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Length', Buffer.byteLength(String(challenge)));
+    return res.status(200).end(String(challenge));
   }
 
   if (challenge) {
     res.setHeader('Content-Type', 'text/plain');
-    return res.status(200).send(String(challenge));
+    res.setHeader('Content-Length', Buffer.byteLength(String(challenge)));
+    return res.status(200).end(String(challenge));
   }
 
   return res.sendStatus(403);
