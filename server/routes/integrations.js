@@ -679,4 +679,8 @@ router.post('/telegram/webhook/:token', async (req, res) => {
   }
 });
 
+// Meta Webhook endpoint registered under integrations router (/api/integrations/webhook/meta)
+const metaWebhookRoutes = require('./metaWebhook');
+router.use('/webhook/meta', metaWebhookRoutes);
+
 module.exports = router;

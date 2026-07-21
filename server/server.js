@@ -20,6 +20,7 @@ const integrationsRoutes = require('./routes/integrations');
 const knowledgeRoutes = require('./routes/knowledge');
 const employeesRoutes = require('./routes/employees');
 const notificationsRoutes = require('./routes/notifications');
+const metaWebhookRoutes = require('./routes/metaWebhook');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
@@ -30,6 +31,10 @@ app.use('/api/integrations', integrationsRoutes);
 app.use('/api/knowledge', knowledgeRoutes);
 app.use('/api/employees', employeesRoutes);
 app.use('/api/notifications', notificationsRoutes);
+
+// Meta Webhook endpoints (Mount at both /webhook/meta and /api/webhook/meta for Nginx reverse proxy compatibility)
+app.use('/webhook/meta', metaWebhookRoutes);
+app.use('/api/webhook/meta', metaWebhookRoutes);
 
 // Health check endpoint
 app.get('/', (req, res) => {
