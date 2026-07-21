@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
   const token = req.query['hub.verify_token'];
   const challenge = req.query['hub.challenge'];
 
-  const expectedToken = process.env.META_VERIFY_TOKEN || process.env.META_WEBHOOK_VERIFY_TOKEN || 'aiva_meta_verify_token_2026_prod';
+  const expectedToken = process.env.META_VERIFY_TOKEN || process.env.META_WEBHOOK_VERIFY_TOKEN || 'aiva_verify_token';
 
   console.log(`[${new Date().toISOString()}] [Meta Webhook Verification] Received mode: ${mode}, token: ${token}`);
 
