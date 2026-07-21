@@ -1,6 +1,6 @@
 node_modules/
 .env
-db.js/
+db.js
 data/
 npm-cache/
 scratch/
